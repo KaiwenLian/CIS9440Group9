@@ -10,15 +10,19 @@ import zipfile
 import datacommons_pandas as dc
 from gcp_functions import upload_dataframe_to_gcs
 
-## config for gcp functions
-YOUR_BUCKET_NAME = 'staging-group9-dw'
-PROJECT_ID = 'dw-group-project'
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+YOUR_BUCKET_NAME = config["bucket_name"]
+PROJECT_ID = config["project_id"]
+api_key = config["api_census_key"]
 
 
 ## Extract data for levels fyi
 
 # Initialize the connection to the Azure Blob Storage
-connection_string = 'DefaultEndpointsProtocol=https;AccountName=levelfyi;AccountKey=iZYEskIkgkTF43I/hrswZXkuFOhp7FDLrlP2cvZvQhKUBKGB6CCB360M0Hc7S/7P959/yydHuIJd+AStjvkMOw==;EndpointSuffix=core.windows.net'
+connection_string = config["azure_connection_string"]
 container_name = 'levelsfyidata'
 folder_path = 'responses/20240221'
 
